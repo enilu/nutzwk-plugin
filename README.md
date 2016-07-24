@@ -23,4 +23,7 @@ nutzwk的idea intellij 的MVC代码生成插件
 - 弹出窗口中目前只有baseUri和package可以配置，checkbox选项暂时不允许配置（即使配置了也没有用）
 
 
-**没错，这个插件，其实就是给nutzwk-code-generator增加个配置界面而已^_^**
+**注意**
+
+- 没错，这个插件，其实就是给nutzwk-code-generator增加个配置界面而已^_^
+- 需要依赖最新版的nutzwk-code-generator项目
