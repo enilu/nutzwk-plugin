@@ -25,11 +25,6 @@ import java.util.List;
  * Created by ghost on 2016/4/1.
  */
 public class ConfigDialog extends DialogWrapper {
-    private final CollectionListModel<PsiField> mFieldsCollection = new CollectionListModel<>();
-    private LabeledComponent<JPanel> mFieldsComponentPanel;
-    private JBList mFieldList;
-    private JBCheckBox mIncludeSuperFieldBox;
-    private JBCheckBox mIncludeTransientFieldBox;
     private JBCheckBox controllerCheckBox;
     private JBCheckBox serviceCheckBox;
     private JBCheckBox viewCheckBox;
@@ -38,13 +33,6 @@ public class ConfigDialog extends DialogWrapper {
     private final PsiClass mClass;
     private final String basePackage;
     private final String baseUri;
-
-    private ActionListener mCheckBoxListener = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-           ;
-        }
-    };
 
     public ConfigDialog(final PsiClass psiClass) {
         super(psiClass.getProject());
@@ -74,15 +62,11 @@ public class ConfigDialog extends DialogWrapper {
     @Nullable
     @Override
     protected JComponent createSouthPanel() {
-
         JComponent southPanel = super.createSouthPanel();
         if (null == southPanel) {
             return null;
         }
         final VerticalBox root = new VerticalBox();
-//        root.add(controllerCheckBox);
-//        root.add(serviceCheckBox);
-//        root.add(viewCheckBox);
         root.add(baseUriTextField);
         root.add(basePackageTextField);
         root.add(southPanel);
@@ -97,15 +81,8 @@ public class ConfigDialog extends DialogWrapper {
         centerPanel.add(serviceCheckBox);
         centerPanel.add(viewCheckBox);
         return centerPanel;
-//        return mFieldsComponentPanel;
     }
 
-    public List<PsiField> getSelectedFields() {
-        if (null == mFieldList) {
-            return null;
-        }
-        return mFieldList.getSelectedValuesList();
-    }
     public GenerateConfig getGenerateConfig(){
         GenerateConfig config = new GenerateConfig();
         config.setBasePackage(basePackage);
