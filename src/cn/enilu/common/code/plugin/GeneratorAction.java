@@ -57,7 +57,14 @@ public class GeneratorAction  extends AnAction {
         ApplicationConfiguration appConfig = new ApplicationConfiguration("generator", project, ApplicationConfigurationType.getInstance());
         appConfig.MAIN_CLASS_NAME = "cn.enilu.common.code.Generator";
         String entityClassName = rootClass.getName();
-        appConfig.PROGRAM_PARAMETERS = "-i "+entityClassName+" -u "+generateConfig.getBaseUri()+" -p "+generateConfig.getBasePackage();
+        StringBuilder programArgs = new StringBuilder();
+        programArgs.append("-i ").append(entityClassName).append(" -u ").append(generateConfig.getBaseUri()).append(" -p ")
+                .append(generateConfig.getBasePackage()) .append(generateConfig.isForce() ? " -f" : "")
+                .append(generateConfig.getPages()!=null?(" -v "+generateConfig.getPages()):"")
+                .append(generateConfig.isConroller() ? " controller" : "")
+                .append(generateConfig.isService() ? " service" : "").append(generateConfig.isView()?" view":"") ;
+
+        appConfig.PROGRAM_PARAMETERS = programArgs.toString();
 
         appConfig.WORKING_DIRECTORY = project.getBasePath();
         Module[] modules = ModuleManager.getInstance(project).getModules();

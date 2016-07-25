@@ -1,17 +1,16 @@
 <idea-plugin version="2">
   <id>cn.enilu</id>
   <name>nutzwk-plugin</name>
-  <version>1.0</version>
+  <version>1.1</version>
   <vendor email="eniluzt@qq.com" url="http://www.enilu.cn">enilu</vendor>
 
   <description><![CDATA[
-      Enter short description for your plugin here.<br>
-      <em>most HTML tags may be used</em>
+      基于nutzwk的代码生成插件，需要依赖nutzwk-code-generator项目.<br>
+
     ]]></description>
 
   <change-notes><![CDATA[
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>
+      更细粒度的代码生成控制，可以设置生成service/controller/页面；页面可以控制生成add/edit/detail/index；
     ]]>
   </change-notes>
 

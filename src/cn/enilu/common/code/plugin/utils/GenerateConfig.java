@@ -18,7 +18,8 @@ public class GenerateConfig {
     private String controllerPakName="controllers";
     private String ServicePakName="services";
     private String modelPakName;
-
+    private boolean force=false;
+    private String pages;
     private Project project;
 
     public boolean isService() {
@@ -91,5 +92,21 @@ public class GenerateConfig {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    public boolean isForce() {
+        return force;
+    }
+
+    public void setForce(boolean force) {
+        this.force = force;
+    }
+
+    public String getPages() {
+        return pages;
+    }
+
+    public void setPages(String pages) {
+        this.pages = pages;
     }
 }

@@ -20,8 +20,8 @@ nutzwk的idea intellij 的MVC代码生成插件
 
 - 打开要生成model类，在代码中右键打开“Generate...”，选择“nutzwk mvc”
 - 在弹出窗口选择“ok”按钮即可，即可在相应位置生成代码
-- 弹出窗口中目前只有baseUri和package可以配置，checkbox选项暂时不允许配置（即使配置了也没有用）
 
+![使用界面](ui.png)
 
 **注意**
 
