@@ -6,7 +6,8 @@ nutzwk的idea intellij 的MVC代码生成插件
 
 ### 下载安装插件
 
-[github下载](nutzwk-plugin.jar)
+- [github下载](nutzwk-plugin.jar)
+- IDEA插件库下载
 
 ### 依赖[nutzwk-code-generator](https://github.com/enilu/nutzwk-code-generator)
 
