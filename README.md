@@ -10,11 +10,15 @@ nutzwk的idea intellij 的MVC代码生成插件
 
 ### 依赖[nutzwk-code-generator](https://github.com/enilu/nutzwk-code-generator)
 
-- 下载nutzwk-code-generator项目
-- 安装nutzwk-code-generator到本地仓库
-        cd nutzwk-code-generator
-        mvn install
-- 拷贝项目中的code/code.json配置文件到自己的项目中的resources目录下
+在自己的项目中添加依赖
+
+```
+        <dependency>
+               <groupId>cn.enilu.tools</groupId>
+               <artifactId>nutzwk-code-generator</artifactId>
+               <version>1.0</version>
+        </dependency>
+```    
 
 ### 用法
 
