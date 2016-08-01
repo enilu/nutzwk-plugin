@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>cn.enilu</id>
   <name>nutzwk-plugin</name>
-  <version>1.2</version>
+  <version>1.3</version>
   <vendor email="eniluzt@qq.com" url="http://www.enilu.cn">enilu</vendor>
 
   <description><![CDATA[
@@ -10,8 +10,7 @@
     ]]></description>
 
   <change-notes><![CDATA[
-      修复了生成页面的时候的bug；
-      对依赖的nutzwk-code-generator不存在的时候进行合理的判断和提醒
+     优化错误提示信息
     ]]>
   </change-notes>
 

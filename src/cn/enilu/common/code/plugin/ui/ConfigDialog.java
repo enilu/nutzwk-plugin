@@ -47,12 +47,19 @@ public class ConfigDialog extends DialogWrapper {
         super(psiClass.getProject());
         String arr[] = psiClass.getQualifiedName().split("\\.");
         String modelName = psiClass.getName();
+        System.out.println("Modelname:"+modelName);
+        for(int i=0;i<arr
+                .length;i++){
+            System.out.println("arr:"+arr[i]);
+        }
 
-        basePackage = psiClass.getQualifiedName().replace("."+arr[arr.length-2]+"."+arr[arr.length-1],"");
-        baseUri = "/private/"+basePackage.substring(basePackage.lastIndexOf(".")+1);
-        mClass = psiClass;
-        setupViews(modelName);
-        init();
+            basePackage = psiClass.getQualifiedName().replace("." + arr[arr.length - 2] + "." + arr[arr.length - 1], "");
+            baseUri = "/private/"+basePackage.substring(basePackage.lastIndexOf(".")+1);
+            mClass = psiClass;
+            setupViews(modelName);
+            init();
+
+
     }
 
 

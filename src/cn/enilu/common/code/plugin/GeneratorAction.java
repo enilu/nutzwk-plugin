@@ -34,8 +34,8 @@ public class GeneratorAction  extends AnAction {
     Project project=null;
     public void actionPerformed(AnActionEvent e) {
         project = e.getData(CommonDataKeys.PROJECT);
-        String basePath = project.getBasePath();
-        String pomFile = basePath+"/pom.xml";
+
+        String pomFile = project.getBasePath()+File.separator+"pom.xml";
         try {
             String pomTxt = Files.toString(new File(pomFile), Charset.forName("utf8"));
             if(!pomTxt.contains("cn.enilu.tools")||!pomTxt.contains("nutzwk-code-generator")){
@@ -48,29 +48,31 @@ public class GeneratorAction  extends AnAction {
                 return ;
             }
         }catch (Exception ex){
-            new ErrorDialog(project,"error","该项目不是一个有效的maven项目，暂时不支持使用插件\n生成代码，可以通过该链接：\n" +
+            ex.printStackTrace();
+            new ErrorDialog(project,"error",ex.getMessage()+"\n该项目不是一个有效的maven项目，暂时不支持使用插件\n您以通过该链接：\n" +
                     "http://mvnrepository.com/artifact/cn.enilu.tools/nutzwk-code-generator\n" +
                     "下载nutzwk-code-generatorjar的包添加到项目中，\n" +
                     "然后使用命令行生成代码").show();
             return ;
         }
-        DataContext dataContext = e.getDataContext();
         final Editor editor = e.getData(CommonDataKeys.EDITOR);
-        e.getDataContext();
-        final Document document = editor.getDocument();
 
         PsiClass rootClass = getTargetClass(e, editor);
         if (null == rootClass) {
             new ErrorDialog(project).show();
             return;
         }
-
-        ConfigDialog fieldDialog = new ConfigDialog(rootClass);
+        ConfigDialog fieldDialog = null;
+        try {
+             fieldDialog = new ConfigDialog(rootClass);
+        }catch (Exception ex){
+            new ErrorDialog(project,"error","\npackage名成不规范").show();
+            return ;
+        }
         fieldDialog.show();
         if (!fieldDialog.isOK()) {
             return;
         }
-
 
         generateCode(rootClass, fieldDialog.getGenerateConfig());
     }
@@ -105,9 +107,7 @@ public class GeneratorAction  extends AnAction {
         final PsiFile file = e.getData(LangDataKeys.PSI_FILE);
         int offset = editor.getCaretModel().getOffset();
         PsiElement element = file.findElementAt(offset);
-        PsiClass psiClass =  PsiTreeUtil.getParentOfType(element, PsiClass.class);
-
-        return psiClass;
+        return  PsiTreeUtil.getParentOfType(element, PsiClass.class);
     }
 
     @Override
