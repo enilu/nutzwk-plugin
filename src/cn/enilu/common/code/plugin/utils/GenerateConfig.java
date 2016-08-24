@@ -17,7 +17,7 @@ public class GenerateConfig {
 
     private String controllerPakName="controllers";
     private String ServicePakName="services";
-    private String modelPakName;
+    private String modelPakName="models";
     private boolean force=false;
     private String pages;
     private Project project;

@@ -87,6 +87,9 @@ public class GeneratorAction  extends AnAction {
         programArgs.append("-i ").append(entityClassName).append(" -u ").append(generateConfig.getBaseUri()).append(" -p ")
                 .append(generateConfig.getBasePackage()) .append(generateConfig.isForce() ? " -f" : "")
                 .append(generateConfig.getPages().length()>1?(" -v "+generateConfig.getPages()):"")
+                .append(" -mod ").append(generateConfig.getModelPakName())
+                .append(" -ctr ").append(generateConfig.getControllerPakName())
+                .append(" -sev ").append(generateConfig.getServicePakName())
                 .append(generateConfig.isConroller() ? " controller" : "")
                 .append(generateConfig.isService() ? " service" : "").append(generateConfig.isView()?" view":"") ;
 

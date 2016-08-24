@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>cn.enilu</id>
   <name>nutzwk-plugin</name>
-  <version>1.3</version>
+  <version>1.4</version>
   <vendor email="eniluzt@qq.com" url="http://www.enilu.cn">enilu</vendor>
 
   <description><![CDATA[
@@ -10,7 +10,7 @@
     ]]></description>
 
   <change-notes><![CDATA[
-     优化错误提示信息
+     优化操作界面，增加service和ctonroler层的报名自定义功能
     ]]>
   </change-notes>
 

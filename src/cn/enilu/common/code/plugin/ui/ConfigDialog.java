@@ -11,6 +11,7 @@ import com.intellij.psi.PsiModifier;
 import com.intellij.ui.CollectionListModel;
 import com.intellij.ui.ToolbarDecorator;
 import com.intellij.ui.components.JBCheckBox;
+import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.JBList;
 import com.intellij.ui.components.JBTextField;
 import com.intellij.ui.components.panels.HorizontalBox;
@@ -37,27 +38,35 @@ public class ConfigDialog extends DialogWrapper {
 
     private JBCheckBox forceCheckBox;
 
+    private JBLabel baseUriLabel;
+    private JBLabel basePackageLabel;
     private JBTextField baseUriTextField;
     private JBTextField basePackageTextField;
+
+
+    private JBLabel modPackageLabel;
+    private JBLabel serPackageLabel;
+    private JBLabel ctrPackageLabel;
+    private JBTextField modPackageTextField;
+    private JBTextField serPackageTextField;
+    private JBTextField ctrPackageTextField;
+
     private final PsiClass mClass;
     private final String basePackage;
     private final String baseUri;
+    private final String modelPackageName;
 
     public ConfigDialog(final PsiClass psiClass) {
         super(psiClass.getProject());
         String arr[] = psiClass.getQualifiedName().split("\\.");
         String modelName = psiClass.getName();
-        System.out.println("Modelname:"+modelName);
-        for(int i=0;i<arr
-                .length;i++){
-            System.out.println("arr:"+arr[i]);
-        }
 
-            basePackage = psiClass.getQualifiedName().replace("." + arr[arr.length - 2] + "." + arr[arr.length - 1], "");
-            baseUri = "/private/"+basePackage.substring(basePackage.lastIndexOf(".")+1);
-            mClass = psiClass;
-            setupViews(modelName);
-            init();
+        basePackage = psiClass.getQualifiedName().replace("." + arr[arr.length - 2] + "." + arr[arr.length - 1], "");
+        modelPackageName = arr[arr.length - 2];
+        baseUri = "/private/" + basePackage.substring(basePackage.lastIndexOf(".") + 1);
+        mClass = psiClass;
+        setupViews(modelName);
+        init();
 
 
     }
@@ -65,25 +74,36 @@ public class ConfigDialog extends DialogWrapper {
 
     private void setupViews(String modelName) {
 
-        setTitle("Generate Model:"+modelName);
+        setTitle("Generate Model:" + modelName);
 
-        controllerCheckBox = new JBCheckBox("controllers",true);
-        serviceCheckBox = new JBCheckBox("services",true);
-        viewCheckBox = new JBCheckBox("views",true);
+        controllerCheckBox = new JBCheckBox("controllers", true);
+        serviceCheckBox = new JBCheckBox("services", true);
+        viewCheckBox = new JBCheckBox("views", true);
 
-        viewAddCheckBox = new JBCheckBox("add",true);
-        viewDetailCheckBox = new JBCheckBox("detail",true);
-        viewEditCheckBox = new JBCheckBox("edit",true);
-        viewIndexCheckBox = new JBCheckBox("index",true);
+        viewAddCheckBox = new JBCheckBox("add", true);
+        viewDetailCheckBox = new JBCheckBox("detail", true);
+        viewEditCheckBox = new JBCheckBox("edit", true);
+        viewIndexCheckBox = new JBCheckBox("index", true);
 
-        forceCheckBox = new JBCheckBox("replace",false);
+        forceCheckBox = new JBCheckBox("replace", false);
 
         baseUriTextField = new JBTextField(baseUri);
         basePackageTextField = new JBTextField(basePackage);
+        baseUriLabel = new JBLabel("baseUri:");
+        basePackageLabel = new JBLabel("base Package:");
+
+        modPackageLabel = new JBLabel("models Package:");
+        serPackageLabel = new JBLabel("services Package:");
+        ctrPackageLabel = new JBLabel("controllers Package:");
+        modPackageTextField = new JBTextField(modelPackageName);
+        modPackageTextField.disable();
+        serPackageTextField = new JBTextField("services");
+        ctrPackageTextField = new JBTextField("controllers");
+
         viewCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if(viewCheckBox.isSelected()){
+                if (viewCheckBox.isSelected()) {
 
                     viewAddCheckBox.setSelected(true);
                     viewDetailCheckBox.setSelected(true);
@@ -94,7 +114,7 @@ public class ConfigDialog extends DialogWrapper {
                     viewDetailCheckBox.setVisible(true);
                     viewEditCheckBox.setVisible(true);
                     viewIndexCheckBox.setVisible(true);
-                }else{
+                } else {
                     viewAddCheckBox.setSelected(false);
                     viewDetailCheckBox.setSelected(false);
                     viewEditCheckBox.setSelected(false);
@@ -117,8 +137,18 @@ public class ConfigDialog extends DialogWrapper {
             return null;
         }
         final VerticalBox root = new VerticalBox();
+        root.add(baseUriLabel);
         root.add(baseUriTextField);
+        root.add(basePackageLabel);
         root.add(basePackageTextField);
+
+        root.add(modPackageLabel);
+        root.add(modPackageTextField);
+        root.add(serPackageLabel);
+        root.add(serPackageTextField);
+        root.add(ctrPackageLabel);
+        root.add(ctrPackageTextField);
+
         root.add(forceCheckBox);
         root.add(southPanel);
         return root;
@@ -129,9 +159,9 @@ public class ConfigDialog extends DialogWrapper {
     protected JComponent createCenterPanel() {
         JComponent centerPanel = super.createContentPane();
         final VerticalBox verticalBox = new VerticalBox();
-        final HorizontalBox  horizontalBox1 = new HorizontalBox();
+        final HorizontalBox horizontalBox1 = new HorizontalBox();
 
-        final HorizontalBox  horizontalBox2 = new HorizontalBox();
+        final HorizontalBox horizontalBox2 = new HorizontalBox();
 
         horizontalBox1.add(controllerCheckBox);
         horizontalBox1.add(serviceCheckBox);
@@ -147,7 +177,7 @@ public class ConfigDialog extends DialogWrapper {
         return centerPanel;
     }
 
-    public GenerateConfig getGenerateConfig(){
+    public GenerateConfig getGenerateConfig() {
         GenerateConfig config = new GenerateConfig();
         config.setBasePackage(basePackage);
         config.setBaseUri(baseUriTextField.getText().trim());
@@ -155,9 +185,12 @@ public class ConfigDialog extends DialogWrapper {
         config.setService(serviceCheckBox.isSelected());
         config.setView(viewCheckBox.isSelected());
         config.setForce(forceCheckBox.isSelected());
+        config.setModelPakName(modPackageTextField.getText().trim());
+        config.setServicePakName(serPackageTextField.getText().trim());
+        config.setControllerPakName(ctrPackageTextField.getText().trim());
         StringBuilder pages = new StringBuilder();
-        pages.append(viewIndexCheckBox.isSelected()?"index_":"").append(viewAddCheckBox.isSelected()?"add_":"")
-                .append(viewDetailCheckBox.isSelected()?"detail_":"").append(viewEditCheckBox.isSelected()?"edit_":"");
+        pages.append(viewIndexCheckBox.isSelected() ? "index_" : "").append(viewAddCheckBox.isSelected() ? "add_" : "")
+                .append(viewDetailCheckBox.isSelected() ? "detail_" : "").append(viewEditCheckBox.isSelected() ? "edit_" : "");
         config.setPages(pages.toString());
         return config;
     }
