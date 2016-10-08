@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>cn.enilu</id>
   <name>nutzwk-plugin</name>
-  <version>1.4</version>
+  <version>1.5</version>
   <vendor email="eniluzt@qq.com" url="http://www.enilu.cn">enilu</vendor>
 
   <description><![CDATA[
@@ -10,7 +10,7 @@
     ]]></description>
 
   <change-notes><![CDATA[
-     优化操作界面，增加service和ctonroler层的报名自定义功能
+     默认uri由private更改为platform，建议依赖的nutzwk-code-generator版本升级到1.2版本
     ]]>
   </change-notes>
 
