@@ -17,7 +17,7 @@ nutzwk的idea intellij 的MVC代码生成插件
         <dependency>
                <groupId>cn.enilu.tools</groupId>
                <artifactId>nutzwk-code-generator</artifactId>
-               <version>1.1</version>
+               <version>1.2</version>
         </dependency>
 ```    
 

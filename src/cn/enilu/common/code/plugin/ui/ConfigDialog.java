@@ -63,7 +63,7 @@ public class ConfigDialog extends DialogWrapper {
 
         basePackage = psiClass.getQualifiedName().replace("." + arr[arr.length - 2] + "." + arr[arr.length - 1], "");
         modelPackageName = arr[arr.length - 2];
-        baseUri = "/private/" + basePackage.substring(basePackage.lastIndexOf(".") + 1);
+        baseUri = "/platform/" + basePackage.substring(basePackage.lastIndexOf(".") + 1);
         mClass = psiClass;
         setupViews(modelName);
         init();
