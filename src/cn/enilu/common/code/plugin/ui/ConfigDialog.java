@@ -60,10 +60,9 @@ public class ConfigDialog extends DialogWrapper {
         super(psiClass.getProject());
         String arr[] = psiClass.getQualifiedName().split("\\.");
         String modelName = psiClass.getName();
-
-        basePackage = psiClass.getQualifiedName().replace("." + arr[arr.length - 2] + "." + arr[arr.length - 1], "");
+        basePackage = psiClass.getQualifiedName().replace("." + arr[arr.length - 3] +"." + arr[arr.length - 2] + "." + arr[arr.length - 1], "");
         modelPackageName = arr[arr.length - 2];
-        baseUri = "/platform/" + basePackage.substring(basePackage.lastIndexOf(".") + 1);
+        baseUri = "/platform/" + arr[arr.length - 2];
         mClass = psiClass;
         setupViews(modelName);
         init();
@@ -95,10 +94,10 @@ public class ConfigDialog extends DialogWrapper {
         modPackageLabel = new JBLabel("models Package:");
         serPackageLabel = new JBLabel("services Package:");
         ctrPackageLabel = new JBLabel("controllers Package:");
-        modPackageTextField = new JBTextField(modelPackageName);
+        modPackageTextField = new JBTextField("models."+modelPackageName);
         modPackageTextField.disable();
-        serPackageTextField = new JBTextField("services");
-        ctrPackageTextField = new JBTextField("controllers");
+        serPackageTextField = new JBTextField("services."+modelPackageName);
+        ctrPackageTextField = new JBTextField("controllers.platform."+modelPackageName);
 
         viewCheckBox.addActionListener(new ActionListener() {
             @Override
