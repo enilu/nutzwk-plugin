@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>cn.enilu</id>
   <name>nutzwk-plugin</name>
-  <version>1.5</version>
+  <version>1.6</version>
   <vendor email="eniluzt@qq.com" url="http://www.enilu.cn">enilu</vendor>
 
   <description><![CDATA[
@@ -10,7 +10,7 @@
     ]]></description>
 
   <change-notes><![CDATA[
-     默认uri由private更改为platform，建议依赖的nutzwk-code-generator版本升级到1.2版本
+     针对nutzwk的bootstrap-3.3.x版本的目录结构进行调整适配。
     ]]>
   </change-notes>
 
